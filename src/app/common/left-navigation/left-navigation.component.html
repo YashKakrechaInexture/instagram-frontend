@@ -1,0 +1,21 @@
+<nav class="navbar navbar-expand-lg navbar-light navover" style="background-color: #fcd47f;"
+    [ngClass]="{ 'clicked': isClicked, 'disabled': !isClicked }">
+
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <i class="bi bi-house-door-fill icons" style="color: crimson;"></i>
+                    <label>Ahmedabad</label>
+                </li>
+                <li class="nav-item">
+                    <i class="bi bi-geo-alt-fill icons" style="color: crimson;"></i>
+                    <label>Gujarat, India.</label>
+                </li>
+            </ul>
+            <div class="d-flex">
+                <button class="btn btn-outline-danger" type="submit" (click)="logout()">Logout</button>
+            </div>
+        </div>
+    </div>
+</nav>

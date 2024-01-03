@@ -1,0 +1,16 @@
+<div class="btn" (click)="toggleClick($event)" [ngStyle]="{'left': isClicked ? '260px' : '10px'}">
+    <span class="bi bi-list" [ngClass]="{'bi-list': !isClicked, 'bi-x': isClicked}"></span>
+</div>
+<nav class="sidebar" [ngClass]="{'show': isClicked}">
+    <div class="text">
+       Todo App
+    </div>
+    <ul class="main_side">
+       <li routerLinkActive="active"><a routerLink="/home">Home</a></li>
+       <li routerLinkActive="active"><a routerLink="/search">Search</a></li>
+       <li routerLinkActive="active"><a routerLink="/explore">Explore</a></li>
+       <li routerLinkActive="active"><a routerLink="/notification">Notification</a></li>
+       <li routerLinkActive="active"><a routerLink="/create">Create</a></li>
+       <li routerLinkActive="active"><a routerLink="/profile">Profile</a></li>
+    </ul>
+</nav>

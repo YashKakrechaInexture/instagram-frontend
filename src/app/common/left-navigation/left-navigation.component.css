@@ -1,0 +1,57 @@
+#mainSidebarToggler {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 300px;
+    margin: 0;
+}
+
+.nav-sidebar {
+    height: 100vh;
+    overflow-y: hidden;
+    z-index: 1000;
+}
+
+.collapse:not(.show) {
+    display: block;
+    width: 50%;
+}
+
+.collapsing {
+    width: 50%;
+    height: 100%;
+    transition: width .35s ease;
+}
+
+.navover {
+    overflow: hidden;
+    /* mix-blend-mode: difference; */
+    z-index: 0;
+    /* margin-left: 307px; */
+    /* padding-left: 308px; */
+    transition: 0.4s ease;
+}
+
+.clicked {
+    padding-left: 58px;
+}
+
+.disabled {
+    padding-left: 58px;
+}
+
+.navbar {
+    position: relative;
+}
+
+.wrapper {
+    position: relative;
+}
+
+.navbar-toggler {
+    display: block;
+}
+
+.icons {
+    margin: 10px;
+}
