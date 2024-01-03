@@ -1,1 +1,17 @@
-<p>login works!</p>
+<div class="container loginbox">
+    <a routerLink="/home">home</a>
+    <form (ngSubmit)="onSubmit()">
+        <div class="login-heading text-center">
+            <label>Sign In</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="email" [(ngModel)]="email" name="email" placeholder="name@example.com">
+            <label for="email">Email address</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="password" [(ngModel)]="password" name="password" placeholder="Password">
+            <label for="password">Password</label>
+        </div>
+        <button type="submit" class="btn btn-success btn-submit">Sign in</button>
+    </form>
+</div>
