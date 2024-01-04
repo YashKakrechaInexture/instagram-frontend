@@ -21,19 +21,19 @@ export class AuthenticationService {
     return this.httpClient.post<LoginResponse>(this.authenticateHostname,loginRequest);
   }
 
-  public setToken(token: string) {
+  public setToken(token: string): void {
     this.cookieService.set('token', token, undefined, '/', undefined, true, 'Strict');
   }
 
-  public getToken() {
+  public getToken(): string {
     return this.cookieService.get('token');
   }
 
-  public isLoggedIn() {
+  public isLoggedIn(): boolean {
     return this.cookieService.get('token')!=="";
   }
 
-  public logout(){
+  public logout(): void {
     this.cookieService.delete('token');
   }
 }

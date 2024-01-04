@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 import { LoginRequest } from 'src/app/model/request/login-request';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 
@@ -14,7 +15,8 @@ export class LoginComponent implements OnInit,OnDestroy {
 
   constructor(
     private authenticationService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private toast: NgToastService
   ){
     this.email = "";
     this.password = "";
@@ -31,11 +33,11 @@ export class LoginComponent implements OnInit,OnDestroy {
 
   public onSubmit(){
     if(this.email===""){
-      // this.toast.error({detail:"ERROR", summary:'Please Enter Your Email!', duration:5000});
+      this.toast.error({detail:"ERROR", summary:'Please Enter Your Email!', duration:5000});
       return;
     }
     if(this.password===""){
-      // this.toast.error({detail:"ERROR", summary:'Please Enter Your Password!', duration:5000});
+      this.toast.error({detail:"ERROR", summary:'Please Enter Your Password!', duration:5000});
       return;
     }
     const loginRequest: LoginRequest = {
@@ -52,7 +54,7 @@ export class LoginComponent implements OnInit,OnDestroy {
         this.router.navigateByUrl('home');
       },
       (error)=>{
-        // this.toast.error({detail:"ERROR", summary:error?.error?.error, duration:5000});
+        this.toast.error({detail:"ERROR", summary:error?.error?.error, duration:5000});
       }
     );
   }

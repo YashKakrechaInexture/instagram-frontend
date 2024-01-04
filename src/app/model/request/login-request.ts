@@ -1,6 +1,6 @@
 export class LoginRequest {
-    email: String;
-    password: String;
+    public email: String;
+    public password: String;
 
     constructor(email: String, password: String) {
         this.email = email;

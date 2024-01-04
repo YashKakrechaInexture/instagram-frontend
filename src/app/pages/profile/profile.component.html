@@ -1,2 +1,28 @@
 <app-header></app-header>
-<p>profile works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            image
+        </div>
+        <div class="col-md-8">
+            Username<p>{{userProfile?.username}}</p>
+            Email<p>{{userProfile?.email}}</p>
+            <div class="row">
+                <div class="col-md-4">
+                    Posts<p>{{userProfile?.postCount}}</p>
+                </div>
+                <div class="col-md-4">
+                    Followers<p>{{userProfile?.followers}}</p>
+                </div>
+                <div class="col-md-4">
+                    Following<p>{{userProfile?.following}}</p>
+                </div>
+            </div>
+            Full Name<p>{{userProfile?.fullName}}</p>
+            Description<p>{{userProfile?.description}}</p>
+        </div>
+    </div>
+    <div class="row">
+        posts list
+    </div>
+</div>
