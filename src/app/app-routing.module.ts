@@ -8,6 +8,7 @@ import { ExploreComponent } from './pages/explore/explore.component';
 import { NotificationComponent } from './pages/notification/notification.component';
 import { CreateComponent } from './pages/create/create.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { PostComponent } from './pages/post/post/post.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent, pathMatch:'full'},
@@ -16,7 +17,10 @@ const routes: Routes = [
   {path: 'explore', component: ExploreComponent, canActivate: [AuthGuard]},
   {path: 'notification', component: NotificationComponent, canActivate: [AuthGuard]},
   {path: 'create', component: CreateComponent, canActivate: [AuthGuard]},
-  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]}
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], children: [
+    {path: ':username', component: ProfileComponent, canActivate: [AuthGuard]}
+  ]},
+  {path: 'post', component: PostComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

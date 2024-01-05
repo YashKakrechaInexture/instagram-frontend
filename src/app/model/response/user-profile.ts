@@ -6,9 +6,10 @@ export class UserProfile {
     postCount?: number;
     followers?: number;
     following?: number;
+    profilePic?: String;
 
     constructor(email: String, username: String, fullName: String, description: String, 
-            postCount: number, followers: number, following: number){
+            postCount: number, followers: number, following: number, profilePic: String){
         this.email = email;
         this.username = username;
         this.fullName = fullName;
@@ -16,5 +17,6 @@ export class UserProfile {
         this.postCount = postCount;
         this.followers = followers;
         this.following = following;
+        this.profilePic = profilePic;
     }
 }

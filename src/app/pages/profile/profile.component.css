@@ -1,0 +1,25 @@
+.profile-page{
+    margin-top: 25px;
+}
+
+.profile-head{
+    height: 350px;
+}
+
+.profile-main-container{
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-container{
+    height: 300px;
+    width: 300px;
+}
+
+img{
+    height: 300px;
+    width: 300px;
+    border-radius: 50%;
+}
