@@ -4,7 +4,9 @@
         <div class="col-md-4">
             <div class="profile-main-container">
                 <div class="profile-container center-div">
-                    <img [src]='userProfile?.profilePic' class="img-fluid"/>
+                    <img [src]="userProfile?.profilePic || 'assets/images/default-profile-pic.jpeg'" class="img-fluid"/>
+                    <button type="button" class="btn btn-primary btn-submit profile-btn" (click)="fileInput.click()">+</button>
+                    <input type="file" #fileInput style="display: none" (change)="onFileSelected($event)" />
                 </div>
             </div>
         </div>

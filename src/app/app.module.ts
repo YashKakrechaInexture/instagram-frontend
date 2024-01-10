@@ -19,6 +19,7 @@ import { NgToastModule } from 'ng-angular-popup';
 import { TokenInterceptor } from './interceptor/token.interceptor';
 import { NotFoundComponent } from './pages/error/not-found/not-found.component';
 import { PostComponent } from './pages/post/post/post.component';
+import { SignupComponent } from './pages/signup/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { PostComponent } from './pages/post/post/post.component';
     CreateComponent,
     ProfileComponent,
     NotFoundComponent,
-    PostComponent
+    PostComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

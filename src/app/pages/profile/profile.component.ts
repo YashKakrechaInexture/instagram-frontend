@@ -40,4 +40,27 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
+
+  public onFileSelected(event: any): void {
+    const file: File = event.target.files[0];
+
+    if (file) {
+      this.uploadFile(file);
+    }
+  }
+
+  private uploadFile(file: File): void {
+    const formData: FormData = new FormData();
+    formData.append('profile-pic', file, file.name);
+
+    this.userService.updateProfilePic(formData)
+      .subscribe(
+        (response) => {
+          this.setProfile();
+        },
+        (error) => {
+          this.toast.error({detail:"ERROR", summary:error?.error?.error, duration:5000});
+        }
+      );
+  }
 }
