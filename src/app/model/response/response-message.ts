@@ -1,7 +1,7 @@
 export class ResponseMessage {
-    public message: String;
+    public message: string;
 
-    constructor(message: String){
+    constructor(message: string){
         this.message = message;
     }
 }

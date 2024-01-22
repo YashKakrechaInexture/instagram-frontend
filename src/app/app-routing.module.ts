@@ -10,10 +10,12 @@ import { CreateComponent } from './pages/create/create.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { PostComponent } from './pages/post/post/post.component';
 import { SignupComponent } from './pages/signup/signup/signup.component';
+import { EnableUserComponent } from './pages/signup/enable-user/enable-user/enable-user.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent, pathMatch:'full'},
   {path: 'signup', component: SignupComponent},
+  {path: 'enable', component: EnableUserComponent},
   {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
   {path: 'search', component: SearchComponent, canActivate: [AuthGuard]},
   {path: 'explore', component: ExploreComponent, canActivate: [AuthGuard]},

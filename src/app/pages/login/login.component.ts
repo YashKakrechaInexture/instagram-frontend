@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit,OnDestroy {
     this.authenticationService.authenticate(loginRequest).subscribe(
       (response)=>{
         this.authenticationService.setToken(response.token.toString());
-        this.router.navigateByUrl('home');
+        this.router.navigateByUrl('home'); 
       },
       (error)=>{
         this.toast.error({detail:"ERROR", summary:error?.error?.error, duration:5000});

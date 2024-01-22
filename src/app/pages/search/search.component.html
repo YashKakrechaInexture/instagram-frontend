@@ -1,2 +1,17 @@
 <app-header></app-header>
-<p>search works!</p>
+<div class="container">
+    <div class="row">
+        <div class="">
+            <p>Search Your Friends : </p>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="username" [(ngModel)]="username" (keyup)="findUser()" name="username" placeholder="john_doe">
+                <label for="username">Username</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div *ngFor="let searchUser of searchUserList">
+            <app-search-object [searchUserResponse]="searchUser"></app-search-object>
+        </div>
+    </div>
+</div>

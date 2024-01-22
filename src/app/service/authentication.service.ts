@@ -5,13 +5,14 @@ import { LoginRequest } from '../model/request/login-request';
 import { LoginResponse } from '../model/response/login-response';
 import { CookieService } from 'ngx-cookie-service';
 import { SignupRequest } from '../model/request/signup-request';
+import { ResponseMessage } from '../model/response/response-message';
+import { EnableUserRequest } from '../model/request/enable-user-request';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private authenticateHostname = environment.baseUrl + "/authenticate";
-  private signupHostname = environment.baseUrl + "/user/signup";
+  private hostname = environment.baseUrl;
 
   constructor(
     private httpClient: HttpClient,
@@ -20,15 +21,19 @@ export class AuthenticationService {
   }
 
   public authenticate(loginRequest : LoginRequest){
-    return this.httpClient.post<LoginResponse>(this.authenticateHostname,loginRequest);
+    return this.httpClient.post<LoginResponse>(this.hostname + "/authenticate", loginRequest);
   }
 
   public signup(signupRequest : SignupRequest){
-    return this.httpClient.post<LoginResponse>(this.signupHostname,signupRequest);
+    return this.httpClient.post<ResponseMessage>(this.hostname + "/user/signup", signupRequest);
+  }
+
+  public enableUser(enableUserRequest : EnableUserRequest){
+    return this.httpClient.post<ResponseMessage>(this.hostname + "/user/enable", enableUserRequest);
   }
 
   public setToken(token: string): void {
-    this.cookieService.set('token', token, undefined, '/', undefined, true, 'Strict');
+    this.cookieService.set('token', token, undefined, '/', undefined, false, 'Strict');
   }
 
   public getToken(): string {

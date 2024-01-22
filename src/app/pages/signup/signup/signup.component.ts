@@ -10,6 +10,7 @@ import { AuthenticationService } from 'src/app/service/authentication.service';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit, OnDestroy {
+  fullName: String;
   email: String;
   username: String;
   password: String;
@@ -19,6 +20,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     private router: Router,
     private toast: NgToastService
   ){
+    this.fullName = "";
     this.email = "";
     this.username = "";
     this.password = "";
@@ -33,6 +35,10 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit(){
+    if(this.fullName===""){
+      this.toast.error({detail:"ERROR", summary:'Please Enter Your Full Name!', duration:5000});
+      return;
+    }
     if(this.email===""){
       this.toast.error({detail:"ERROR", summary:'Please Enter Your Email!', duration:5000});
       return;
@@ -46,6 +52,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       return;
     }
     const signupRequest: SignupRequest = {
+      fullName : this.fullName,
       email : this.email,
       username : this.username,
       password : this.password
@@ -56,7 +63,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   private createUser(signupRequest : SignupRequest){
     this.authenticationService.signup(signupRequest).subscribe(
       (response)=>{
-        this.authenticationService.setToken(response.token.toString());
+        this.toast.success({detail:"SUCCESS", summary:response.message, duration:5000});
         this.router.navigateByUrl('home');
       },
       (error)=>{

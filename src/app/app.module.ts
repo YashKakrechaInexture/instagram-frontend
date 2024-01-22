@@ -20,6 +20,8 @@ import { TokenInterceptor } from './interceptor/token.interceptor';
 import { NotFoundComponent } from './pages/error/not-found/not-found.component';
 import { PostComponent } from './pages/post/post/post.component';
 import { SignupComponent } from './pages/signup/signup/signup.component';
+import { EnableUserComponent } from './pages/signup/enable-user/enable-user/enable-user.component';
+import { SearchObjectComponent } from './pages/search/search-object/search-object.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { SignupComponent } from './pages/signup/signup/signup.component';
     ProfileComponent,
     NotFoundComponent,
     PostComponent,
-    SignupComponent
+    SignupComponent,
+    EnableUserComponent,
+    SearchObjectComponent
   ],
   imports: [
     BrowserModule,
