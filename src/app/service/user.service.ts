@@ -28,4 +28,12 @@ export class UserService {
   searchUser(params: HttpParams): Observable<SearchUserResponse[]> {
     return this.httpClient.get<SearchUserResponse[]>(this.userHostname + "/searchUser", {params});
   }
+
+  followersList(params: HttpParams): Observable<SearchUserResponse[]> {
+    return this.httpClient.get<SearchUserResponse[]>(this.userHostname + "/followersList", {params});
+  }
+
+  followingList(params: HttpParams): Observable<SearchUserResponse[]> {
+    return this.httpClient.get<SearchUserResponse[]>(this.userHostname + "/followingList", {params});
+  }
 }

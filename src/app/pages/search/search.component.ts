@@ -11,21 +11,21 @@ import { UserService } from 'src/app/service/user.service';
 })
 export class SearchComponent {
   username: string;
-  searchUserList: SearchUserResponse[];
+  userList: SearchUserResponse[];
 
   constructor(
     private userService: UserService,
     private toast: NgToastService
   ){
     this.username = "";
-    this.searchUserList = [];
+    this.userList = [];
   }
 
   findUser(){
     const params = new HttpParams().set('username', this.username);
     this.userService.searchUser(params).subscribe(
       (response)=>{
-        this.searchUserList = response;
+        this.userList = response;
       },
       (error)=>{
         this.toast.error({detail:"ERROR", summary:error?.error?.error, duration:5000});

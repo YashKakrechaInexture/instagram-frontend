@@ -5,13 +5,13 @@ import { SearchUserResponse } from 'src/app/model/response/search-user-response'
 import { FollowService } from 'src/app/service/follow.service';
 
 @Component({
-  selector: 'app-search-object',
-  templateUrl: './search-object.component.html',
-  styleUrls: ['./search-object.component.css']
+  selector: 'app-user-object',
+  templateUrl: './user-object.component.html',
+  styleUrls: ['./user-object.component.css']
 })
-export class SearchObjectComponent {
+export class UserObjectComponent {
   @Input()
-  searchUserResponse!: SearchUserResponse;
+  user!: SearchUserResponse;
 
   constructor(
     private followService: FollowService,

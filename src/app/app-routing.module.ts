@@ -11,6 +11,9 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { PostComponent } from './pages/post/post/post.component';
 import { SignupComponent } from './pages/signup/signup/signup.component';
 import { EnableUserComponent } from './pages/signup/enable-user/enable-user/enable-user.component';
+import { FollowersComponent } from './pages/profile/followers/followers.component';
+import { FollowingComponent } from './pages/profile/following/following.component';
+import { NotFoundComponent } from './pages/error/not-found/not-found.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent, pathMatch:'full'},
@@ -21,9 +24,10 @@ const routes: Routes = [
   {path: 'explore', component: ExploreComponent, canActivate: [AuthGuard]},
   {path: 'notification', component: NotificationComponent, canActivate: [AuthGuard]},
   {path: 'create', component: CreateComponent, canActivate: [AuthGuard]},
-  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], children: [
-    {path: ':username', component: ProfileComponent, canActivate: [AuthGuard]}
-  ]},
+  {path: 'profile', component: NotFoundComponent, canActivate: [AuthGuard]},
+  {path: 'profile/:username', component: ProfileComponent, canActivate: [AuthGuard]},
+  {path: 'profile/:username/followers', component: FollowersComponent, canActivate: [AuthGuard]},
+  {path: 'profile/:username/following', component: FollowingComponent, canActivate: [AuthGuard]},
   {path: 'post', component: PostComponent, canActivate: [AuthGuard]},
 ];
 

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SearchObjectComponent } from './search-object.component';
+import { UserListViewComponent } from './user-list-view.component';
 
-describe('SearchObjectComponent', () => {
-  let component: SearchObjectComponent;
-  let fixture: ComponentFixture<SearchObjectComponent>;
+describe('UserListViewComponent', () => {
+  let component: UserListViewComponent;
+  let fixture: ComponentFixture<UserListViewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SearchObjectComponent ]
+      declarations: [ UserListViewComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SearchObjectComponent);
+    fixture = TestBed.createComponent(UserListViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

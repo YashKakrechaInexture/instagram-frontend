@@ -21,7 +21,10 @@ import { NotFoundComponent } from './pages/error/not-found/not-found.component';
 import { PostComponent } from './pages/post/post/post.component';
 import { SignupComponent } from './pages/signup/signup/signup.component';
 import { EnableUserComponent } from './pages/signup/enable-user/enable-user/enable-user.component';
-import { SearchObjectComponent } from './pages/search/search-object/search-object.component';
+import { UserListViewComponent } from './common/user/user-list-view/user-list-view.component';
+import { UserObjectComponent } from './common/user/user-object/user-object.component';
+import { FollowersComponent } from './pages/profile/followers/followers.component';
+import { FollowingComponent } from './pages/profile/following/following.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,10 @@ import { SearchObjectComponent } from './pages/search/search-object/search-objec
     PostComponent,
     SignupComponent,
     EnableUserComponent,
-    SearchObjectComponent
+    UserListViewComponent,
+    UserObjectComponent,
+    FollowersComponent,
+    FollowingComponent
   ],
   imports: [
     BrowserModule,

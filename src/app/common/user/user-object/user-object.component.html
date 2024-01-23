@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="profile-main-container">
+                <div class="profile-container center-div">
+                    <img [src]="user.profilePic || 'assets/images/default-profile-pic.jpeg'" class="img-fluid"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="profile-name-container">
+                <p class="username-paragraph">
+                    <b>{{user.username}}</b>
+                </p>
+                <p class="fullName-paragraph">
+                    {{user.fullName}}
+                </p>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div *ngIf="!user.selfUser;">
+                <div *ngIf="!user.following; else unFollow">
+                    <button class="btn btn-success" (click)="followUser(user)">Follow</button>
+                </div>
+                <ng-template #unFollow>
+                    <button class="btn btn-danger" (click)="unfollowUser(user)">UnFollow</button>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

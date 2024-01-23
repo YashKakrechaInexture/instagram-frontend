@@ -9,9 +9,5 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div *ngFor="let searchUser of searchUserList">
-            <app-search-object [searchUserResponse]="searchUser"></app-search-object>
-        </div>
-    </div>
+    <app-user-list-view [userList]="userList"></app-user-list-view>
 </div>

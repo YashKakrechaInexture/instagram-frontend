@@ -17,10 +17,10 @@
                 <div class="col-md-4">
                     Posts<p>{{userProfile?.postCount}}</p>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" (click)="followers()">
                     Followers<p>{{userProfile?.followers}}</p>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" (click)="following()">
                     Following<p>{{userProfile?.following}}</p>
                 </div>
             </div>
