@@ -11,20 +11,52 @@
             </div>
         </div>
         <div class="col-md-8">
-            Username<p>{{userProfile?.username}}</p>
-            Email<p>{{userProfile?.email}}</p>
-            <div class="row">
+            <div class="row username-row">
                 <div class="col-md-4">
-                    Posts<p>{{userProfile?.postCount}}</p>
+                    <div *ngIf="userProfile?.verified; else notVerified">
+                        {{userProfile?.username}}
+                        <img src="assets/images/verified-pic.jpeg" class="img-fluid verified-img"/>
+                    </div>
+                    <ng-template #notVerified>
+                        <div>
+                            {{userProfile?.username}}
+                        </div>
+                    </ng-template>
                 </div>
-                <div class="col-md-4" (click)="followers()">
-                    Followers<p>{{userProfile?.followers}}</p>
-                </div>
-                <div class="col-md-4" (click)="following()">
-                    Following<p>{{userProfile?.following}}</p>
+                <div class="col-md-4" *ngIf="!userProfile?.selfUser;">
+                    <div *ngIf="!userProfile?.followedThisUser; else unFollow">
+                        <button class="btn btn-success" (click)="followUser()">Follow</button>
+                    </div>
+                    <ng-template #unFollow>
+                        <button class="btn btn-danger" (click)="unfollowUser()">UnFollow</button>
+                    </ng-template>
                 </div>
             </div>
-            Full Name<p>{{userProfile?.fullName}}</p>
+            
+            <!-- Email<p>{{userProfile?.email}}</p> -->
+            <div class="row">
+                <div class="col-md-4">
+                    Posts
+                    <p>
+                        <b>{{userProfile?.postCount}}</b>
+                    </p>
+                </div>
+                <div class="col-md-4" (click)="followers()">
+                    Followers
+                    <p>
+                        <b>{{userProfile?.followers}}</b>
+                    </p>
+                </div>
+                <div class="col-md-4" (click)="following()">
+                    Following
+                    <p>
+                        <b>{{userProfile?.following}}</b>
+                    </p>
+                </div>
+            </div>
+            <p>
+                <b>{{userProfile?.fullName}}</b>
+            </p>
             Description<p>{{userProfile?.description}}</p>
         </div>
     </div>

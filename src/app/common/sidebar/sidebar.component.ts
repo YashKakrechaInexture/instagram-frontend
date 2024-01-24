@@ -1,4 +1,5 @@
 import { Component, ElementRef, EventEmitter, Output, Renderer2 } from '@angular/core';
+import { AuthenticationService } from 'src/app/service/authentication.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,7 +12,8 @@ export class SidebarComponent {
 
   constructor(
     private renderer: Renderer2,
-    private el: ElementRef
+    private el: ElementRef,
+    private authenticationService: AuthenticationService
   ){
 
   }
@@ -43,5 +45,9 @@ export class SidebarComponent {
     const spanElement = event.target.querySelector('span') as HTMLElement;
     spanElement?.classList?.toggle('rotate');
     ulElement?.classList?.toggle('close-dropdown');
+  }
+
+  getUsername(){
+    return this.authenticationService.getToken('username');
   }
 }

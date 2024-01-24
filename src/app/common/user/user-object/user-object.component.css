@@ -28,3 +28,8 @@ img{
 .fullName-paragraph{
     color: gray;
 }
+
+.verified-img{
+    height: 20px;
+    width: 20px;
+}

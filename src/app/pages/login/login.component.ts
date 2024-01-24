@@ -50,7 +50,8 @@ export class LoginComponent implements OnInit,OnDestroy {
   private authenticate(loginRequest : LoginRequest){
     this.authenticationService.authenticate(loginRequest).subscribe(
       (response)=>{
-        this.authenticationService.setToken(response.token.toString());
+        this.authenticationService.setToken('token',response.token.toString());
+        this.authenticationService.setToken('username',response.username.toString());
         this.router.navigateByUrl('home'); 
       },
       (error)=>{

@@ -32,19 +32,20 @@ export class AuthenticationService {
     return this.httpClient.post<ResponseMessage>(this.hostname + "/user/enable", enableUserRequest);
   }
 
-  public setToken(token: string): void {
-    this.cookieService.set('token', token, undefined, '/', undefined, false, 'Strict');
+  public setToken(key: string, value: string): void {
+    this.cookieService.set(key, value, undefined, '/', undefined, false, 'Strict');
   }
 
-  public getToken(): string {
-    return this.cookieService.get('token');
+  public getToken(key: string): string {
+    return this.cookieService.get(key);
   }
 
   public isLoggedIn(): boolean {
-    return this.cookieService.get('token')!=="";
+    return this.cookieService.get('token')!=="" && this.cookieService.get('username')!=="";
   }
 
   public logout(): void {
     this.cookieService.delete('token');
+    this.cookieService.delete('username');
   }
 }

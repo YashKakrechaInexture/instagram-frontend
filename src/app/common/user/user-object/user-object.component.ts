@@ -1,5 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { SearchUserResponse } from 'src/app/model/response/search-user-response';
 import { FollowService } from 'src/app/service/follow.service';
@@ -15,13 +16,14 @@ export class UserObjectComponent {
 
   constructor(
     private followService: FollowService,
-    private toast: NgToastService
+    private toast: NgToastService,
+    private router: Router
   ){
 
   }
 
   followUser(searchUserResponse: SearchUserResponse){
-    const params = new HttpParams().set('followUsername',searchUserResponse.username);
+    const params = new HttpParams().set('followUsername',searchUserResponse.username!);
     this.followService.followUser(params).subscribe(
       (response)=>{
         this.toast.success({detail:"SUCCESS", summary:response.message, duration:5000});
@@ -34,7 +36,7 @@ export class UserObjectComponent {
   }
 
   unfollowUser(searchUserResponse: SearchUserResponse){
-    const params = new HttpParams().set('followUsername',searchUserResponse.username);
+    const params = new HttpParams().set('followUsername',searchUserResponse.username!);
     this.followService.unfollowUser(params).subscribe(
       (response)=>{
         this.toast.success({detail:"SUCCESS", summary:response.message, duration:5000});
@@ -44,5 +46,9 @@ export class UserObjectComponent {
         this.toast.error({detail:"ERROR", summary:error?.error?.error, duration:5000});
       }
     )
+  }
+
+  goToProfile(){
+    this.router.navigateByUrl('profile/'+this.user.username);
   }
 }

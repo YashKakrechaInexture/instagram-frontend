@@ -1,8 +1,9 @@
+import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
-import { UserListViewComponent } from 'src/app/common/user/user-list-view/user-list-view.component';
 import { UserProfile } from 'src/app/model/response/user-profile';
+import { FollowService } from 'src/app/service/follow.service';
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
@@ -12,28 +13,30 @@ import { UserService } from 'src/app/service/user.service';
 })
 export class ProfileComponent implements OnInit {
   public userProfile?: UserProfile;
-  private username?: String
+  private username: string
 
   constructor(
     private userService: UserService,
     private toast: NgToastService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private followService: FollowService
   ){
-    
+    this.username = "";
   }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(
       (params) => {
         this.username = params['username'];
+        this.setProfile();
       }
     )
-    this.setProfile();
   }
 
   public setProfile(){
-    this.userService.getProfile().subscribe(
+    const params = new HttpParams().set('username',this.username);
+    this.userService.getProfile(params).subscribe(
       (response)=>{
         this.userProfile = response;
       },
@@ -71,5 +74,31 @@ export class ProfileComponent implements OnInit {
 
   following(){
     this.router.navigateByUrl('profile/' + this.username + '/following');
+  }
+
+  followUser(){
+    const params = new HttpParams().set('followUsername',this.userProfile?.username!);
+    this.followService.followUser(params).subscribe(
+      (response)=>{
+        this.toast.success({detail:"SUCCESS", summary:response.message, duration:5000});
+        this.userProfile!.followedThisUser = true;
+      },
+      (error)=>{
+        this.toast.error({detail:"ERROR", summary:error?.error?.error, duration:5000});
+      }
+    )
+  }
+
+  unfollowUser(){
+    const params = new HttpParams().set('followUsername',this.userProfile?.username!);
+    this.followService.unfollowUser(params).subscribe(
+      (response)=>{
+        this.toast.success({detail:"SUCCESS", summary:response.message, duration:5000});
+        this.userProfile!.followedThisUser = false;
+      },
+      (error)=>{
+        this.toast.error({detail:"ERROR", summary:error?.error?.error, duration:5000});
+      }
+    )
   }
 }

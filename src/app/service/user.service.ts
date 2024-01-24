@@ -17,8 +17,8 @@ export class UserService {
   ) {
   }
 
-  getProfile(): Observable<UserProfile> {
-    return this.httpClient.get<UserProfile>(this.userHostname + "/profile");
+  getProfile(params: HttpParams): Observable<UserProfile> {
+    return this.httpClient.get<UserProfile>(this.userHostname + "/profile", {params});
   }
 
   updateProfilePic(formData: FormData): Observable<ResponseMessage> {

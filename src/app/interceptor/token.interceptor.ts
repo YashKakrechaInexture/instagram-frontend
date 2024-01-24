@@ -21,7 +21,7 @@ export class TokenInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     if(this.authenticationService.isLoggedIn()){
       request = request.clone({
-        headers: request.headers.set('Authorization', `Bearer ${this.authenticationService.getToken()}`)
+        headers: request.headers.set('Authorization', `Bearer ${this.authenticationService.getToken('token')}`)
       });
     }else{
       this.router.navigateByUrl('');

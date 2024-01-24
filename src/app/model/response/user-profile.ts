@@ -1,15 +1,19 @@
 export class UserProfile {
     email?: String;
-    username?: String;
+    username?: string;
     fullName?: String;
     description?: String;
     postCount?: number;
     followers?: number;
     following?: number;
     profilePic?: String;
+    selfUser?: boolean;
+    followedThisUser?: boolean;
+    verified?: boolean;
 
-    constructor(email: String, username: String, fullName: String, description: String, 
-            postCount: number, followers: number, following: number, profilePic: String){
+    constructor(email: String, username: string, fullName: String, description: String, 
+            postCount: number, followers: number, following: number, profilePic: String, 
+            selfUser: boolean, followedThisUser: boolean, verified: boolean){
         this.email = email;
         this.username = username;
         this.fullName = fullName;
@@ -18,5 +22,8 @@ export class UserProfile {
         this.followers = followers;
         this.following = following;
         this.profilePic = profilePic;
+        this.selfUser = selfUser;
+        this.followedThisUser = followedThisUser;
+        this.verified = verified;
     }
 }

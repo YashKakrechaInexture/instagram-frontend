@@ -3,14 +3,15 @@
         <div class="col-md-2">
             <div class="profile-main-container">
                 <div class="profile-container center-div">
-                    <img [src]="user.profilePic || 'assets/images/default-profile-pic.jpeg'" class="img-fluid"/>
+                    <img [src]="user.profilePic || 'assets/images/default-profile-pic.jpeg'" class="img-fluid" (click)="goToProfile()"/>
                 </div>
             </div>
         </div>
         <div class="col-md-8">
             <div class="profile-name-container">
                 <p class="username-paragraph">
-                    <b>{{user.username}}</b>
+                    <b (click)="goToProfile()">{{user.username}}</b>
+                    <img *ngIf="user?.verified;" src="assets/images/verified-pic.jpeg" class="img-fluid verified-img"/>
                 </p>
                 <p class="fullName-paragraph">
                     {{user.fullName}}
