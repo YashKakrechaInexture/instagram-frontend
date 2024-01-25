@@ -61,6 +61,10 @@
         </div>
     </div>
     <div class="row">
-        posts list
+        <div class="gallery">
+            <div *ngFor="let post of posts" class="gallery-item">
+                <img [src]="post.image" alt="Gallery Image" (click)="postView(post.id)"/>
+            </div>
+        </div>  
     </div>
 </div>

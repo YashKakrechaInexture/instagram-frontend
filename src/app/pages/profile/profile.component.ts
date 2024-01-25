@@ -2,8 +2,10 @@ import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
+import { PostResponse } from 'src/app/model/response/post-response';
 import { UserProfile } from 'src/app/model/response/user-profile';
 import { FollowService } from 'src/app/service/follow.service';
+import { PostService } from 'src/app/service/post.service';
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
@@ -13,10 +15,12 @@ import { UserService } from 'src/app/service/user.service';
 })
 export class ProfileComponent implements OnInit {
   public userProfile?: UserProfile;
+  public posts?: PostResponse[];
   private username: string
 
   constructor(
     private userService: UserService,
+    private postService: PostService,
     private toast: NgToastService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -30,6 +34,7 @@ export class ProfileComponent implements OnInit {
       (params) => {
         this.username = params['username'];
         this.setProfile();
+        this.getPostsList();
       }
     )
   }
@@ -68,12 +73,16 @@ export class ProfileComponent implements OnInit {
     );
   }
 
-  followers(){
-    this.router.navigateByUrl('profile/' + this.username + '/followers');
-  }
-
-  following(){
-    this.router.navigateByUrl('profile/' + this.username + '/following');
+  private getPostsList(){
+    const params = new HttpParams().set('username',this.username);
+    this.postService.getAllPostsByUsername(params).subscribe(
+      (response)=>{
+        this.posts = response;
+      },
+      (error)=>{
+        this.toast.error({detail:"ERROR", summary:error?.error?.error, duration:5000});
+      }
+    );
   }
 
   followUser(){
@@ -100,5 +109,17 @@ export class ProfileComponent implements OnInit {
         this.toast.error({detail:"ERROR", summary:error?.error?.error, duration:5000});
       }
     )
+  }
+
+  followers(){
+    this.router.navigateByUrl('profile/' + this.username + '/followers');
+  }
+
+  following(){
+    this.router.navigateByUrl('profile/' + this.username + '/following');
+  }
+
+  postView(id: number){
+    this.router.navigateByUrl('post/' + id);
   }
 }

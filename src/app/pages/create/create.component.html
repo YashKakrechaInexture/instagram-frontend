@@ -1,2 +1,20 @@
 <app-header></app-header>
-<p>create works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h4 class="post-heading">Upload Post</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <button type="button" class="btn btn-primary btn-submit profile-btn" (click)="fileInput.click()">+</button>
+            <input type="file" #fileInput style="display: none" (change)="onFileSelected($event)" />
+        </div>
+        <div class="col-md-6">
+            <textarea class="form-control" id="caption" [(ngModel)]="caption" rows="3"></textarea>
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-success btn-submit" (click)="post()">Post</button>
+        </div>
+    </div>
+</div>

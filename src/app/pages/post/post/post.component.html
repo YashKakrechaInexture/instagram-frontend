@@ -1,1 +1,25 @@
-<p>post works!</p>
+<app-header></app-header>
+<div class="container">
+    <div class="row">
+        {{post?.user?.username}}
+        {{post?.user?.profilePic}}
+    </div>
+    <div class="row">
+        <div class="image-box">
+            <img [src]="post?.image" class="post-image"/>
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            <i class='bx bx-md bx-heart icons' [class.bxs-heart]="isLiked" [class.bx-flashing]="showFlash" (click)="toggleLike()"></i>
+            <i class='bx bx-md bx-chat icons'></i>
+            <i class='bx bx-md bx-send icons'></i>
+        </div>
+    </div>
+    <div class="row">
+        <b class="username">
+            {{post?.user?.username}}
+        </b>
+        {{post?.caption}}
+    </div>
+</div>
