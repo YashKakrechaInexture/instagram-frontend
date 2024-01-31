@@ -1,8 +1,10 @@
 <app-header></app-header>
 <div class="container">
     <div class="row">
-        {{post?.user?.username}}
-        {{post?.user?.profilePic}}
+        <div class="username-container">
+            <img [src]="post?.user?.profilePic" class="profile-pic" [routerLink]="['/profile/',post?.user?.username]"/>
+            <b class="username" [routerLink]="['/profile/',post?.user?.username]">{{post?.user?.username}}</b>
+        </div>
     </div>
     <div class="row">
         <div class="image-box">
@@ -14,6 +16,11 @@
             <i class='bx bx-md bx-heart icons' [class.bxs-heart]="isLiked" [class.bx-flashing]="showFlash" (click)="toggleLike()"></i>
             <i class='bx bx-md bx-chat icons'></i>
             <i class='bx bx-md bx-send icons'></i>
+        </div>
+    </div>
+    <div class="row">
+        <div class="like-count">
+            {{post?.likes}} Likes
         </div>
     </div>
     <div class="row">

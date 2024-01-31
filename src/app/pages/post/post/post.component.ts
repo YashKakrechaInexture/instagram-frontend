@@ -54,7 +54,7 @@ export class PostComponent implements OnInit {
       }, 1300);
       this.postService.likePost(params).subscribe(
         (response)=>{
-
+          this.post!.likes = this.post!.likes + 1;
         },
         (error)=>{
           this.toast.error({detail:"ERROR", summary:error?.error?.error, duration:5000});
@@ -63,7 +63,7 @@ export class PostComponent implements OnInit {
     }else{
       this.postService.unlikePost(params).subscribe(
         (response)=>{
-
+          this.post!.likes = this.post!.likes - 1;
         },
         (error)=>{
           this.toast.error({detail:"ERROR", summary:error?.error?.error, duration:5000});

@@ -14,6 +14,7 @@ import { EnableUserComponent } from './pages/signup/enable-user/enable-user/enab
 import { FollowersComponent } from './pages/profile/followers/followers.component';
 import { FollowingComponent } from './pages/profile/following/following.component';
 import { NotFoundComponent } from './pages/error/not-found/not-found.component';
+import { ChatComponent } from './pages/chat/chat/chat.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent, pathMatch:'full'},
@@ -29,6 +30,7 @@ const routes: Routes = [
   {path: 'profile/:username/followers', component: FollowersComponent, canActivate: [AuthGuard]},
   {path: 'profile/:username/following', component: FollowingComponent, canActivate: [AuthGuard]},
   {path: 'post/:id', component: PostComponent, canActivate: [AuthGuard]},
+  {path: 'chat/:username', component: ChatComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

@@ -60,8 +60,15 @@ body {
   font-weight: 600;
   line-height: 65px;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: #1e1e1e;
   letter-spacing: 1px;
+}
+
+i.bx{
+  padding: 5px;
 }
 
 nav ul {
@@ -85,10 +92,11 @@ nav ul li a {
   position: relative;
   color: white;
   text-decoration: none;
-  font-size: 13px;
+  font-size: 14px;
   padding-left: 14px;
   font-weight: 500;
-  display: block;
+  display: flex;
+  align-items: center;
   width: 100%;
   border-left: 3px solid transparent;
 }
@@ -172,4 +180,12 @@ nav ul li a span.rotate {
 
 .close-dropdown{
   display: none;
+}
+
+.bx-xs{
+  font-size: 1.4rem !important;
+}
+
+i.sidebar-logo{
+  padding: 10px;
 }

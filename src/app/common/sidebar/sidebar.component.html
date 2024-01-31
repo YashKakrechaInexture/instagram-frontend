@@ -1,16 +1,53 @@
 <div class="btn" (click)="toggleClick($event)" [ngStyle]="{'left': isClicked ? '260px' : '10px'}">
-    <span class="bi bi-list" [ngClass]="{'bi-list': !isClicked, 'bi-x': isClicked}"></span>
+    <span class="bx bx-sm bx-menu" [ngClass]="{'bx-menu': !isClicked, 'bx-x': isClicked}"></span>
 </div>
 <nav class="sidebar" [ngClass]="{'show': isClicked}">
     <div class="text">
-       Todo App
+        <i class='bx bxl-instagram bx-md logo'></i>
+        Instagram
     </div>
     <ul class="main_side">
-       <li routerLinkActive="active"><a routerLink="/home"><i class="bi bi-house-door-fill"></i>Home</a></li>
-       <li routerLinkActive="active"><a routerLink="/search">Search</a></li>
-       <li routerLinkActive="active"><a routerLink="/explore">Explore</a></li>
-       <li routerLinkActive="active"><a routerLink="/notification">Notification</a></li>
-       <li routerLinkActive="active"><a routerLink="/create">Create</a></li>
-       <li routerLinkActive="active"><a [routerLink]="['/profile/'+getUsername()]">Profile</a></li>
+        <li routerLinkActive="active">
+            <a routerLink="/home">
+                <i class="bx bx-xs bxs-home sidebar-logo"></i>
+                Home
+            </a>
+        </li>
+        <li routerLinkActive="active">
+            <a routerLink="/search">
+                <i class="bx bx-xs bx-search sidebar-logo"></i>
+                Search
+            </a>
+        </li>
+        <li routerLinkActive="active">
+            <a routerLink="/explore">
+                <i class="bx bx-xs bx-compass sidebar-logo"></i>
+                Explore
+            </a>
+        </li>
+        <li routerLinkActive="active">
+            <a routerLink="/messages">
+                <i class="bx bx-xs bxl-messenger sidebar-logo"></i>
+                Messages
+            </a>
+        </li>
+        <li routerLinkActive="active">
+            <a routerLink="/notification">
+                <i class="bx bx-xs bx-bell sidebar-logo"></i>
+                Notification
+            </a>
+        </li>
+        <li routerLinkActive="active">
+            <a routerLink="/create">
+                <i class="bx bx-xs bx-duplicate sidebar-logo"></i>
+                Create
+            </a>
+        </li>
+        <li routerLinkActive="active">
+            <a [routerLink]="['/profile/'+getUsername()]">
+                <i class="bx bx-xs bx-user sidebar-logo"></i>
+                Profile
+            </a>
+        </li>
     </ul>
 </nav>

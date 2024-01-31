@@ -19,3 +19,17 @@
 .bxs-heart{
     color: red;
 }
+
+.profile-pic{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+.username-container{
+    margin-bottom: 10px;
+}
+
+.profile-pic{
+    margin-right: 10px;
+}

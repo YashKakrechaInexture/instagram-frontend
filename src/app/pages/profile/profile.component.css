@@ -58,3 +58,11 @@ img{
     object-fit: cover;
     border-radius: 0px;
 }
+
+.buttons{
+    margin-right: 20px;
+}
+
+.buttons-list{
+    display: inline-flex;
+}

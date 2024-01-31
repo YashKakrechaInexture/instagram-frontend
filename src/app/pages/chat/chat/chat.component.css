@@ -1,0 +1,21 @@
+.chat-box{
+    display: flex;
+}
+
+.chat-container{
+    position: absolute;
+    bottom: 0;
+    width: 69%;
+}
+
+.send-btn{
+    margin-left: 10px;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+}
+
+.send-btn i{
+    margin-left: -3px;
+    margin-top: 2px;
+}

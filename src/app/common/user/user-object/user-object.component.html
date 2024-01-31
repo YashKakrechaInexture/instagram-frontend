@@ -21,7 +21,7 @@
         <div class="col-md-2">
             <div *ngIf="!user.selfUser;">
                 <div *ngIf="!user.following; else unFollow">
-                    <button class="btn btn-success" (click)="followUser(user)">Follow</button>
+                    <button class="btn btn-primary" (click)="followUser(user)">Follow</button>
                 </div>
                 <ng-template #unFollow>
                     <button class="btn btn-danger" (click)="unfollowUser(user)">UnFollow</button>

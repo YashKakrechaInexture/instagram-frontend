@@ -1,0 +1,24 @@
+<app-header></app-header>
+<div class="container">
+    <div class="row">
+        <div class="chat-username">
+            username
+        </div>
+    </div>
+    <div class="row">
+        <div class="chat-messages">
+            message list
+        </div>
+    </div>
+    <div class="row">
+        <div class="chat-container">
+            <div class="form-floating mb-3 chat-box">
+                <textarea #messageTextarea class="form-control" id="message" [(ngModel)]="message" (keydown)="handleKeyPress($event)" name="message" placeholder="Message..."></textarea>
+                <label for="message">Message...</label>
+                <button class="btn btn-primary send-btn" (click)="sendMessage()">
+                    <i class='bx bx-md bxl-telegram'></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

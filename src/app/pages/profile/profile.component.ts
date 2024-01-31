@@ -16,7 +16,7 @@ import { UserService } from 'src/app/service/user.service';
 export class ProfileComponent implements OnInit {
   public userProfile?: UserProfile;
   public posts?: PostResponse[];
-  private username: string
+  private username: string;
 
   constructor(
     private userService: UserService,
