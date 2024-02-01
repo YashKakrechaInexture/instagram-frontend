@@ -26,6 +26,7 @@ import { UserObjectComponent } from './common/user/user-object/user-object.compo
 import { FollowersComponent } from './pages/profile/followers/followers.component';
 import { FollowingComponent } from './pages/profile/following/following.component';
 import { ChatComponent } from './pages/chat/chat/chat.component';
+import { ChatListComponent } from './pages/chat/chat-list/chat-list.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { ChatComponent } from './pages/chat/chat/chat.component';
     UserObjectComponent,
     FollowersComponent,
     FollowingComponent,
-    ChatComponent
+    ChatComponent,
+    ChatListComponent
   ],
   imports: [
     BrowserModule,

@@ -1,19 +1,41 @@
 <app-header></app-header>
-<div class="container">
+<div class="container chat-ui">
     <div class="row">
-        <div class="chat-username">
-            username
+        <div class="recipient-container">
+            <div class="recipient-box">
+                <div class="profile-main-container">
+                    <div class="profile-container center-div">
+                        <img [src]="recipient?.profilePic || 'assets/images/default-profile-pic.jpeg'" class="img-fluid" (click)="goToProfile()"/>
+                    </div>
+                </div>
+                <div class="profile-name-container">
+                    <p class="username-paragraph">
+                        <b (click)="goToProfile()">{{recipient?.username}}</b>
+                        <img *ngIf="recipient?.verified;" src="assets/images/verified-pic.jpeg" class="img-fluid verified-img"/>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
     <div class="row">
         <div class="chat-messages">
-            message list
+            <div class="message-box" *ngFor="let message of messageList" [ngClass]="{'sender-message': message.sender === recipient?.username, 'my-message': message.sender !== recipient?.username}">
+                <div class="message-content">
+                    <div *ngIf="message.sender === recipient?.username" class="sender">{{message.sender}}</div>
+                    <div class="message">{{message.message}}</div>
+                    <div class="timestamp">{{message.timestamp | date: 'shortTime'}}</div>
+                </div>
+                <!-- {{message.sender}}
+                {{message.recipient}}
+                {{message.message}}
+                {{message.timestamp}} -->
+            </div>
         </div>
     </div>
     <div class="row">
         <div class="chat-container">
             <div class="form-floating mb-3 chat-box">
-                <textarea #messageTextarea class="form-control" id="message" [(ngModel)]="message" (keydown)="handleKeyPress($event)" name="message" placeholder="Message..."></textarea>
+                <textarea #messageTextarea class="form-control" id="message" [(ngModel)]="messageContent" (keydown)="handleKeyPress($event)" name="message" placeholder="Message..."></textarea>
                 <label for="message">Message...</label>
                 <button class="btn btn-primary send-btn" (click)="sendMessage()">
                     <i class='bx bx-md bxl-telegram'></i>

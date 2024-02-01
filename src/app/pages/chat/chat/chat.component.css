@@ -6,6 +6,9 @@
     position: absolute;
     bottom: 0;
     width: 69%;
+    border-top: 1px groove darkgray;
+    padding-top: 16px;
+    background-color: white;
 }
 
 .send-btn{
@@ -18,4 +21,114 @@
 .send-btn i{
     margin-left: -3px;
     margin-top: 2px;
+}
+
+.recipient-container{
+    border-bottom: 1px groove darkgray;
+    margin-bottom: 10px;
+}
+
+.recipient-box{
+    display: flex;
+}
+
+.profile-main-container{
+    height: 60px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.profile-container{
+    height: 60px;
+    width: 60px;
+    position: relative;
+}
+
+img{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+.profile-name-container{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.username-paragraph{
+    margin-bottom: 0px;
+}
+
+.verified-img{
+    height: 20px;
+    width: 20px;
+}
+
+.chat-ui {
+    margin-top: -15px;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+}
+
+.chat-messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    max-height: 74vh;
+}
+
+.message-box {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #f1f0f0;
+}
+
+.message-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.sender {
+    font-weight: bold;
+}
+
+.message {
+    margin-top: 5px;
+}
+
+.timestamp {
+    font-size: 10px;
+    color: #777;
+}
+
+.sender-message {
+    align-self: flex-start;
+    margin-right: auto;
+    background-color: #f1f0f0;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: max-content;
+    max-width: 70%;
+}
+
+.my-message {
+    align-self: flex-end;
+    margin-left: auto;
+    background: linear-gradient(to bottom right, #1576ff, #26cbff);
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: max-content;
+    max-width: 70%;
+}
+
+.my-message .timestamp{
+    color: white;
 }

@@ -5,6 +5,7 @@ import { UserProfile } from '../model/response/user-profile';
 import { Observable } from 'rxjs';
 import { ResponseMessage } from '../model/response/response-message';
 import { SearchUserResponse } from '../model/response/search-user-response';
+import { MessagePageProfileResponse } from '../model/response/message-page-profile-response';
 
 @Injectable({
   providedIn: 'root'
@@ -35,5 +36,9 @@ export class UserService {
 
   followingList(params: HttpParams): Observable<SearchUserResponse[]> {
     return this.httpClient.get<SearchUserResponse[]>(this.userHostname + "/followingList", {params});
+  }
+
+  getMessagePageProfile(params: HttpParams): Observable<MessagePageProfileResponse> {
+    return this.httpClient.get<MessagePageProfileResponse>(this.userHostname + "/message-page-profile", {params});
   }
 }
