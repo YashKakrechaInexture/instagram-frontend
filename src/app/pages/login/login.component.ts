@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { LoginRequest } from 'src/app/model/request/login-request';
 import { AuthenticationService } from 'src/app/service/authentication.service';
+import { WebsocketService } from 'src/app/service/websocket.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit,OnDestroy {
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router,
-    private toast: NgToastService
+    private toast: NgToastService,
+    private websocketService: WebsocketService
   ){
     this.email = "";
     this.password = "";
@@ -52,6 +54,19 @@ export class LoginComponent implements OnInit,OnDestroy {
       (response)=>{
         this.authenticationService.setToken('token',response.token.toString());
         this.authenticationService.setToken('username',response.username.toString());
+        this.websocketService.connect().subscribe(
+          (status) => {
+            console.log('WebSocket connection status:', status);
+            if (status.connected) {
+              this.websocketService.subscribe(response.username, (message) => {
+                console.log('Received message:', message.body);
+              });
+            }
+          },
+          (error) => {
+            console.error('WebSocket connection error:', error);
+          }
+        );
         this.router.navigateByUrl('home'); 
       },
       (error)=>{

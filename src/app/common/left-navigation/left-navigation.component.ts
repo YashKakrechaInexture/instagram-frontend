@@ -12,10 +12,6 @@ export class LeftNavigationComponent implements OnInit {
   isUserVisible: boolean;
   @Input() isClicked = true;
 
-  // onLeftNavClicked(event: boolean) {
-  //   this.isClicked = event;
-  // }
-
   constructor(
     private authenticationService : AuthenticationService,
     private router : Router

@@ -127,8 +127,24 @@ img{
     margin-bottom: 10px;
     width: max-content;
     max-width: 70%;
+    position: relative;
 }
 
 .my-message .timestamp{
     color: white;
 }
+/* 
+.my-message:before{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+    left: auto;
+	right: 0px;
+    top: 0px;
+	bottom: auto;
+	border-style: solid;
+    border-width: 10px 0 0 10px;
+	border-color:  #1576ff transparent transparent transparent;
+    /* z-index: -1; 
+} */

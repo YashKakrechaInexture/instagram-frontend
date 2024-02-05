@@ -27,6 +27,7 @@ import { FollowersComponent } from './pages/profile/followers/followers.componen
 import { FollowingComponent } from './pages/profile/following/following.component';
 import { ChatComponent } from './pages/chat/chat/chat.component';
 import { ChatListComponent } from './pages/chat/chat-list/chat-list.component';
+import { WebsocketService } from './service/websocket.service';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { ChatListComponent } from './pages/chat/chat-list/chat-list.component';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }
+    },
+    WebsocketService
   ],
   bootstrap: [AppComponent]
 })

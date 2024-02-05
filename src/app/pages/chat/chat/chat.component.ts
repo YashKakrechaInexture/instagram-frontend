@@ -2,8 +2,11 @@ import { HttpParams } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
+import { MessageRequest } from 'src/app/model/request/message-request';
 import { Message } from 'src/app/model/response/message';
 import { MessagePageProfileResponse } from 'src/app/model/response/message-page-profile-response';
+import { MessageStatus } from 'src/app/model/response/message-status';
+import { AuthenticationService } from 'src/app/service/authentication.service';
 import { ChatService } from 'src/app/service/chat.service';
 import { UserService } from 'src/app/service/user.service';
 
@@ -15,7 +18,7 @@ import { UserService } from 'src/app/service/user.service';
 export class ChatComponent implements OnInit{
   private username!: string;
   @ViewChild('messageTextarea') private textarea!: ElementRef<HTMLTextAreaElement>;
-  public messageContent: string;
+  public messageContent: string = "";
   public messageList: Message[] = [];
   public recipient?: MessagePageProfileResponse;
 
@@ -23,180 +26,10 @@ export class ChatComponent implements OnInit{
     private activatedRoute: ActivatedRoute,
     private chatService: ChatService,
     private userService: UserService,
+    private authenticationService: AuthenticationService,
     private toast: NgToastService,
     private router: Router
   ){
-    this.messageContent = "";
-    this.messageList = [
-      {
-        sender: "yash",
-        recipient: "tom",
-        message: "Hi",
-        timestamp: new Date()
-      },
-      {
-        sender: "yashkakrechainexture",
-        recipient: "tom",
-        message: "Hi",
-        timestamp: new Date()
-      },
-      {
-        sender: "yash",
-        recipient: "tom",
-        message: "Hi",
-        timestamp: new Date()
-      },
-      {
-        sender: "yashkakrechainexture",
-        recipient: "tom",
-        message: "Hi",
-        timestamp: new Date()
-      },
-      {
-        sender: "yash",
-        recipient: "tom",
-        message: "Hi",
-        timestamp: new Date()
-      },
-      {
-        sender: "yashkakrechainexture",
-        recipient: "tom",
-        message: "Hi",
-        timestamp: new Date()
-      },
-      {
-        sender: "yash",
-        recipient: "tom",
-        message: "Hi",
-        timestamp: new Date()
-      },
-      {
-        sender: "yash",
-        recipient: "tom",
-        message: "Hi",
-        timestamp: new Date()
-      },
-      {
-        sender: "yash",
-        recipient: "tom",
-        message: "Hi",
-        timestamp: new Date()
-      },
-      {
-        sender: "yashkakrechainexture",
-        recipient: "tom",
-        message: "Hi",
-        timestamp: new Date()
-      },
-      {
-        sender: "yash",
-        recipient: "tom",
-        message: "Hi",
-        timestamp: new Date()
-      },
-      {
-        sender: "yash",
-        recipient: "tom",
-        message: "Hi",
-        timestamp: new Date()
-      },
-      {
-        sender: "yashkakrechainexture",
-        recipient: "tom",
-        message: "Hi",
-        timestamp: new Date()
-      },
-      {
-        sender: "yash",
-        recipient: "tom",
-        message: "Hi",
-        timestamp: new Date()
-      },
-      {
-        sender: "yashkakrechainexture",
-        recipient: "tom",
-        message: "Hi",
-        timestamp: new Date()
-      },
-      {
-        sender: "yash",
-        recipient: "tom",
-        message: "Hi",
-        timestamp: new Date()
-      },
-      {
-        sender: "yash",
-        recipient: "tom",
-        message: "Hi",
-        timestamp: new Date()
-      },
-      {
-        sender: "yash",
-        recipient: "tom",
-        message: "Hi",
-        timestamp: new Date()
-      },
-      {
-        sender: "yashkakrechainexture",
-        recipient: "tom",
-        message: "Hi",
-        timestamp: new Date()
-      },
-      {
-        sender: "yash",
-        recipient: "tom",
-        message: "Hi",
-        timestamp: new Date()
-      },
-      {
-        sender: "yash",
-        recipient: "tom",
-        message: "Hi",
-        timestamp: new Date()
-      },
-      {
-        sender: "yashkakrechainexture",
-        recipient: "tom",
-        message: "Hi",
-        timestamp: new Date()
-      },
-      {
-        sender: "yash",
-        recipient: "tom",
-        message: "Hi",
-        timestamp: new Date()
-      },
-      {
-        sender: "yash",
-        recipient: "tom",
-        message: "Hi",
-        timestamp: new Date()
-      },
-      {
-        sender: "yash",
-        recipient: "tom",
-        message: "Hi",
-        timestamp: new Date()
-      },
-      {
-        sender: "yash",
-        recipient: "tom",
-        message: "Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello Hi hello ",
-        timestamp: new Date()
-      },
-      {
-        sender: "yashkakrechainexture",
-        recipient: "tom",
-        message: "Hi",
-        timestamp: new Date()
-      },
-      {
-        sender: "yashkakrechainexture",
-        recipient: "tom",
-        message: "Hi",
-        timestamp: new Date()
-      }
-    ]
   }
 
   ngOnInit(): void {
@@ -204,6 +37,7 @@ export class ChatComponent implements OnInit{
       (params) => {
         this.username = params['username'];
         this.setProfile();
+        this.getMessages();
       }
     )
   }
@@ -218,6 +52,17 @@ export class ChatComponent implements OnInit{
         this.toast.error({detail:"ERROR", summary:error?.error?.error, duration:5000});
       }
     );
+  }
+
+  private getMessages(): void {
+    this.chatService.getMessages(this.username).subscribe(
+      (response)=>{
+        this.messageList = response;
+      },
+      (error)=>{
+        this.toast.error({detail:"ERROR", summary:error?.error?.error, duration:5000});
+      }
+    )
   }
 
   handleKeyPress(event: KeyboardEvent): void {
@@ -235,6 +80,20 @@ export class ChatComponent implements OnInit{
 
   sendMessage(): void {
     console.log(this.messageContent);
+    const messageRequest: MessageRequest = {
+      sender: this.authenticationService.getToken('username'),
+      recipient: this.recipient?.username!,
+      message: this.messageContent
+    }
+    this.chatService.sendMessage(messageRequest);
+    const messageResponse: Message = {
+      sender: this.authenticationService.getToken('username'),
+      recipient: this.recipient?.username!,
+      message: this.messageContent,
+      timestamp: new Date(),
+      status: MessageStatus.RECEIVED
+    }
+    this.messageList.push(messageResponse);
     this.messageContent = '';
     this.textarea.nativeElement.style.height = '';
   }
