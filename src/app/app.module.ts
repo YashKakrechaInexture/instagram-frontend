@@ -28,6 +28,7 @@ import { FollowingComponent } from './pages/profile/following/following.componen
 import { ChatComponent } from './pages/chat/chat/chat.component';
 import { ChatListComponent } from './pages/chat/chat-list/chat-list.component';
 import { WebsocketService } from './service/websocket.service';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { WebsocketService } from './service/websocket.service';
       useClass: TokenInterceptor,
       multi: true
     },
-    WebsocketService
+    WebsocketService,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

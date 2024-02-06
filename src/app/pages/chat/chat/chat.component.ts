@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { HttpParams } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,6 +10,7 @@ import { MessageStatus } from 'src/app/model/response/message-status';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { ChatService } from 'src/app/service/chat.service';
 import { UserService } from 'src/app/service/user.service';
+import { WebsocketService } from 'src/app/service/websocket.service';
 
 @Component({
   selector: 'app-chat',
@@ -20,15 +22,18 @@ export class ChatComponent implements OnInit{
   @ViewChild('messageTextarea') private textarea!: ElementRef<HTMLTextAreaElement>;
   public messageContent: string = "";
   public messageList: Message[] = [];
+  public messagesGroupedByDate: { [key: string]: Message[] } = {};
   public recipient?: MessagePageProfileResponse;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private chatService: ChatService,
     private userService: UserService,
+    private websocketService: WebsocketService,
     private authenticationService: AuthenticationService,
     private toast: NgToastService,
-    private router: Router
+    private router: Router,
+    private datePipe: DatePipe
   ){
   }
 
@@ -39,7 +44,13 @@ export class ChatComponent implements OnInit{
         this.setProfile();
         this.getMessages();
       }
-    )
+    );
+    this.websocketService.chatNotification.subscribe(
+      (message)=>{
+        message.date = this.getDateFromTimestamp(message.timestamp);
+        this.pushMessage(message);
+      }
+    );
   }
 
   private setProfile(): void {
@@ -58,11 +69,25 @@ export class ChatComponent implements OnInit{
     this.chatService.getMessages(this.username).subscribe(
       (response)=>{
         this.messageList = response;
+        this.messagesGroupedByDate = this.groupMessagesByDate(this.messageList);
       },
       (error)=>{
         this.toast.error({detail:"ERROR", summary:error?.error?.error, duration:5000});
       }
     )
+  }
+
+  private groupMessagesByDate(messages: Message[]): { [key: string]: Message[] } {
+    const grouped: { [key: string]: Message[] } = {};
+    messages.forEach((message) => {
+      message.date = this.getDateFromTimestamp(message.timestamp);
+      const date = message.date || '';
+      if (!grouped[date]) {
+        grouped[date] = [];
+      }
+      grouped[date].push(message);
+    });
+    return grouped;
   }
 
   handleKeyPress(event: KeyboardEvent): void {
@@ -79,13 +104,12 @@ export class ChatComponent implements OnInit{
   }
 
   sendMessage(): void {
-    console.log(this.messageContent);
     const messageRequest: MessageRequest = {
       sender: this.authenticationService.getToken('username'),
       recipient: this.recipient?.username!,
       message: this.messageContent
     }
-    this.chatService.sendMessage(messageRequest);
+    this.websocketService.publish(messageRequest);
     const messageResponse: Message = {
       sender: this.authenticationService.getToken('username'),
       recipient: this.recipient?.username!,
@@ -93,12 +117,30 @@ export class ChatComponent implements OnInit{
       timestamp: new Date(),
       status: MessageStatus.RECEIVED
     }
-    this.messageList.push(messageResponse);
+    messageResponse.date = this.getDateFromDateString(messageResponse.timestamp.toISOString());
+    this.pushMessage(messageResponse);
     this.messageContent = '';
     this.textarea.nativeElement.style.height = '';
   }
 
   goToProfile(){
     this.router.navigateByUrl('profile/'+this.recipient?.username);
+  }
+
+  private pushMessage(message: Message): void {
+    const date = message.date || '';
+    if (!this.messagesGroupedByDate[date]) {
+      this.messagesGroupedByDate[date] = [];
+    }
+    this.messagesGroupedByDate[date].push(message);
+  }
+
+  private getDateFromTimestamp(timestamp: Date): string {
+    const date: string = timestamp?.toString().split('T')[0]; 
+    return this.datePipe.transform(date, 'dd MMM, yyyy')!;
+  }
+
+  private getDateFromDateString(date: string): string {
+    return this.datePipe.transform(date, 'dd MMM, yyyy')!;
   }
 }

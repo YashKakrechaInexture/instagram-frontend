@@ -1,8 +1,9 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import { Client, Message, Stomp, StompConfig } from '@stomp/stompjs';
+import { EventEmitter, Injectable, OnDestroy } from '@angular/core';
+import { Client, Stomp, StompConfig } from '@stomp/stompjs';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { MessageRequest } from '../model/request/message-request';
+import { Message } from '../model/response/message';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class WebsocketService implements OnDestroy {
   private socket!: WebSocket;
   private websocketUrl = environment.websocketUrl + '/ws';
   private stompClient?: Client;
+  public chatNotification: EventEmitter<Message> = new EventEmitter();
   
   private messageQueuePrefix: string = '/user/';
   private messageQueueSuffix: string = '/queue/message';
@@ -20,55 +22,36 @@ export class WebsocketService implements OnDestroy {
     
   ) {
     console.log('WebsocketService created');
+    this.connect();
   }
 
   ngOnDestroy(): void {
-    // todo : disconnect
-    // this.stompClient?.disconnect
+    console.log('WebsocketService destroyed');
+    this.stompClient?.deactivate();
   }
 
-  // connect(){
-  //   this.socket = new WebSocket(this.websocketUrl);
-  //   console.log(this.socket);
-  //   this.socket.onopen = (message)=>{
-  //     console.log(message);
-  //   };
-  //   this.socket.subscribe((message)=>console.log(message));
-  //   return this.socket.multiplex(
-  //     '/user/yashkakrechainexture/queue/message',
-  //     null,
-  //     (message) => message
-  //   );
-  // }
+  private connect() {
+    const socket = new WebSocket(this.websocketUrl);
+    this.stompClient = Stomp.over(socket);
+    const stompConfig: StompConfig = {
+      // Your custom headers if needed
+      // headers: {},
+    };
 
-
-  connect(): Observable<any> {
-    return new Observable(observer => {
-      const socket = new WebSocket(this.websocketUrl);
-      this.stompClient = Stomp.over(socket);
-
-      const stompConfig: StompConfig = {
-        // Your custom headers if needed
-        // headers: {},
-
-        // Callback function for handling connection events
-        onConnect: () => {
-          observer.next({ connected: true });
-        },
-
-        // Callback function for handling errors
-        onStompError: (error) => {
-          observer.error(error);
-        }
-      };
-
-      this.stompClient.configure(stompConfig);
-      this.stompClient.activate();
-    });
+    this.stompClient.configure(stompConfig);
+    this.stompClient.activate();
   }
 
-  subscribe(username: string, callback: (message: Message) => void): void {
-    this.stompClient?.subscribe(this.messageQueuePrefix + username + this.messageQueueSuffix, callback);
+  subscribe(username: string): void {
+    this.stompClient?.subscribe(this.messageQueuePrefix + username + this.messageQueueSuffix,
+      (message)=>{
+        this.chatNotification.emit(JSON.parse(message.body));
+      }
+    );
+  }
+
+  unsubscribe(id: string): void {
+    this.stompClient?.unsubscribe(id);
   }
 
   publish(messageRequest: MessageRequest): void {

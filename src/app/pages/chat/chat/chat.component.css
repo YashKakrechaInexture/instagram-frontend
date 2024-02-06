@@ -148,3 +148,11 @@ img{
 	border-color:  #1576ff transparent transparent transparent;
     /* z-index: -1; 
 } */
+
+.date-header {
+    color: darkgray;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

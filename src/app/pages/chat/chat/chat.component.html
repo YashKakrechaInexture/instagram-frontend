@@ -19,13 +19,26 @@
     </div>
     <div class="row">
         <div class="chat-messages">
-            <div class="message-box" *ngFor="let message of messageList" [ngClass]="{'sender-message': message.sender === recipient?.username, 'my-message': message.sender !== recipient?.username}">
+            <div *ngFor="let entry of messagesGroupedByDate | keyvalue">
+                <div class="date-header">{{ entry.key }}</div>
+                <div class="message-box" *ngFor="let message of entry.value" [ngClass]="{
+                    'sender-message': message.sender === recipient?.username,
+                    'my-message': message.sender !== recipient?.username
+                }">
+                    <div class="message-content">
+                        <div *ngIf="message.sender === recipient?.username" class="sender">{{ message.sender }}</div>
+                        <div class="message">{{ message.message }}</div>
+                        <div class="timestamp">{{ message.timestamp | date: 'shortTime' }}</div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="message-box" *ngFor="let message of messageList" [ngClass]="{'sender-message': message.sender === recipient?.username, 'my-message': message.sender !== recipient?.username}">
                 <div class="message-content">
                     <div *ngIf="message.sender === recipient?.username" class="sender">{{message.sender}}</div>
                     <div class="message">{{message.message}}</div>
                     <div class="timestamp">{{message.timestamp | date: 'shortTime'}}</div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="row">

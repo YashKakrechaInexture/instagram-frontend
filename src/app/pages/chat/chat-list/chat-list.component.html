@@ -1,2 +1,36 @@
 <app-header></app-header>
-<p>chat-list works!</p>
+<div class="container">
+    <div *ngFor="let chatRoom of chatRoomList">
+        <div class="row" (click)="goToChat(chatRoom.sender.username)">
+            <div class="col-md-2">
+                <div class="profile-main-container">
+                    <div class="profile-container center-div">
+                        <img [src]="chatRoom.sender.profilePic || 'assets/images/default-profile-pic.jpeg'" class="img-fluid"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="profile-name-container">
+                    <p class="username-paragraph">
+                        <b>{{chatRoom.sender.username}}</b>
+                        <img *ngIf="chatRoom.sender.verified;" src="assets/images/verified-pic.jpeg" class="img-fluid verified-img"/>
+                    </p>
+                    <p class="message-paragraph">
+                        <ng-container *ngIf="chatRoom.lastMessage.sender !== chatRoom.sender.username;">
+                            You: 
+                        </ng-container>
+                        <ng-container class="message-content">
+                            {{chatRoom.lastMessage.message}}
+                        </ng-container>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <p class="fullName-paragraph">
+                    {{chatRoom.lastMessage.timestamp | date: "dd MMM, yyyy 'at' hh:mm a" }}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+

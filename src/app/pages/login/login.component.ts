@@ -54,19 +54,7 @@ export class LoginComponent implements OnInit,OnDestroy {
       (response)=>{
         this.authenticationService.setToken('token',response.token.toString());
         this.authenticationService.setToken('username',response.username.toString());
-        this.websocketService.connect().subscribe(
-          (status) => {
-            console.log('WebSocket connection status:', status);
-            if (status.connected) {
-              this.websocketService.subscribe(response.username, (message) => {
-                console.log('Received message:', message.body);
-              });
-            }
-          },
-          (error) => {
-            console.error('WebSocket connection error:', error);
-          }
-        );
+        this.websocketService.subscribe(response.username);
         this.router.navigateByUrl('home'); 
       },
       (error)=>{
