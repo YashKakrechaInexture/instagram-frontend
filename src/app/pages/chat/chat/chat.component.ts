@@ -47,8 +47,10 @@ export class ChatComponent implements OnInit{
     );
     this.websocketService.chatNotification.subscribe(
       (message)=>{
-        message.date = this.getDateFromTimestamp(message.timestamp);
-        this.pushMessage(message);
+        if(message.sender===this.username){
+          message.date = this.getDateFromTimestamp(message.timestamp);
+          this.pushMessage(message);
+        }
       }
     );
   }

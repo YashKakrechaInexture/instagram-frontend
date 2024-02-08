@@ -7,6 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { SignupRequest } from '../model/request/signup-request';
 import { ResponseMessage } from '../model/response/response-message';
 import { EnableUserRequest } from '../model/request/enable-user-request';
+import { WebsocketService } from './websocket.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class AuthenticationService {
 
   constructor(
     private httpClient: HttpClient,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private websocketService: WebsocketService
   ) {
   }
 
@@ -47,5 +49,7 @@ export class AuthenticationService {
   public logout(): void {
     this.cookieService.delete('token');
     this.cookieService.delete('username');
+    // todo : unsubscribe on logout
+    // this.websocketService.unsubscribe();
   }
 }

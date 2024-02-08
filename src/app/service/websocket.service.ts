@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { MessageRequest } from '../model/request/message-request';
 import { Message } from '../model/response/message';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class WebsocketService implements OnDestroy {
   private chatPrefix: string = '/app/chat';
 
   constructor(
-    
+    private cookieService: CookieService
   ) {
     console.log('WebsocketService created');
     this.connect();
@@ -36,6 +37,12 @@ export class WebsocketService implements OnDestroy {
     const stompConfig: StompConfig = {
       // Your custom headers if needed
       // headers: {},
+      onConnect: () => {
+        const loggedInUser = this.cookieService.get('username');
+        if(loggedInUser !== ""){
+          this.subscribe(loggedInUser);
+        }
+      }
     };
 
     this.stompClient.configure(stompConfig);
