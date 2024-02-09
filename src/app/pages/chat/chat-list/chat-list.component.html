@@ -1,7 +1,7 @@
 <app-header></app-header>
 <div class="container">
     <div *ngFor="let chatRoom of chatRoomList">
-        <div class="row" (click)="goToChat(chatRoom.sender.username)">
+        <div class="row chat-container" (click)="goToChat(chatRoom.sender.username)">
             <div class="col-md-2">
                 <div class="profile-main-container">
                     <div class="profile-container center-div">
@@ -26,9 +26,14 @@
                 </div>
             </div>
             <div class="col-md-2">
-                <p class="fullName-paragraph">
-                    {{chatRoom.lastMessage.timestamp | date: "dd MMM, yyyy 'at' hh:mm a" }}
-                </p>
+                <div class="chat-time-container">
+                    <div class="message-timestamp">
+                        {{chatRoom.lastMessage.timestamp | date: "dd MMM, yyyy 'at' hh:mm a" }}
+                    </div>
+                    <div *ngIf="chatRoom.unreadMessages > 0" class="notification-count">
+                        {{chatRoom.unreadMessages}}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

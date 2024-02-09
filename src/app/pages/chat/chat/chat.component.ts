@@ -50,6 +50,7 @@ export class ChatComponent implements OnInit{
         if(message.sender===this.username){
           message.date = this.getDateFromTimestamp(message.timestamp);
           this.pushMessage(message);
+          this.websocketService.readMessage({id: message.id});
         }
       }
     );
@@ -113,11 +114,12 @@ export class ChatComponent implements OnInit{
     }
     this.websocketService.publish(messageRequest);
     const messageResponse: Message = {
+      id: 'id',
       sender: this.authenticationService.getToken('username'),
       recipient: this.recipient?.username!,
       message: this.messageContent,
       timestamp: new Date(),
-      status: MessageStatus.RECEIVED
+      status: MessageStatus.DELIVERED
     }
     messageResponse.date = this.getDateFromDateString(messageResponse.timestamp.toISOString());
     this.pushMessage(messageResponse);

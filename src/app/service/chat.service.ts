@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Message } from '../model/response/message';
 import { environment } from 'src/environments/environment';
 import { ChatRoomResponse } from '../model/response/chat-room-response';
+import { ChatUnreadMessageCountResponse } from '../model/response/chat-unread-message-count-response';
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +24,9 @@ export class ChatService {
 
   getChatRoomList(): Observable<ChatRoomResponse[]> {
     return this.httpClient.get<ChatRoomResponse[]>(this.chatHostname + "/room-list");
+  }
+
+  getChatUnreadMessageCount(): Observable<ChatUnreadMessageCountResponse> {
+    return this.httpClient.get<ChatUnreadMessageCountResponse>(this.chatHostname + "/unread-message-count");
   }
 }

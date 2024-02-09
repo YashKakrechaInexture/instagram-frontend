@@ -29,6 +29,9 @@
             <a routerLink="/chat">
                 <i class="bx bx-xs bxl-messenger sidebar-logo"></i>
                 Messages
+                <div *ngIf="messageNotification > 0" class="notification-count">
+                    {{messageNotification}}
+                </div>
             </a>
         </li>
         <li routerLinkActive="active">

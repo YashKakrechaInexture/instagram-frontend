@@ -189,3 +189,18 @@ nav ul li a span.rotate {
 i.sidebar-logo{
   padding: 10px;
 }
+
+.notification-count{
+  position: absolute;
+  right: 20px;
+  color: white;
+  background-color: red;
+  border-radius: 50%;
+  height: 25px;
+  width: max-content;
+  padding: 10px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

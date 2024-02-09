@@ -1,3 +1,3 @@
 export enum MessageStatus {
-    RECEIVED, DELIVERED, READ
+    DELIVERED, READ
 }

@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { MessageRequest } from '../model/request/message-request';
 import { Message } from '../model/response/message';
 import { CookieService } from 'ngx-cookie-service';
+import { ReadMessageRequest } from '../model/request/read-message-request';
 
 @Injectable({
   providedIn: 'root'
@@ -65,6 +66,13 @@ export class WebsocketService implements OnDestroy {
     this.stompClient?.publish({
       destination: this.chatPrefix,
       body: JSON.stringify(messageRequest)
+    });
+  }
+
+  readMessage(readMessageRequest: ReadMessageRequest): void {
+    this.stompClient?.publish({
+      destination: this.chatPrefix + '/read',
+      body: JSON.stringify(readMessageRequest)
     });
   }
 }

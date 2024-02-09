@@ -1,5 +1,7 @@
 import { Component, ElementRef, EventEmitter, Output, Renderer2 } from '@angular/core';
 import { AuthenticationService } from 'src/app/service/authentication.service';
+import { ChatService } from 'src/app/service/chat.service';
+import { WebsocketService } from 'src/app/service/websocket.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,18 +9,32 @@ import { AuthenticationService } from 'src/app/service/authentication.service';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent {
-  public isClicked = true;
+  public isClicked: boolean;
+  public messageNotification: number;
   @Output() clickEvent = new EventEmitter<boolean>();
 
   constructor(
     private renderer: Renderer2,
     private el: ElementRef,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private chatService: ChatService,
+    private websocketService: WebsocketService
   ){
-
+    this.isClicked = true;
+    this.messageNotification = 0;
   }
   ngOnInit(): void {
     this.clickEvent.emit(this.isClicked);
+    this.chatService.getChatUnreadMessageCount().subscribe(
+      (response)=>{
+        this.messageNotification = response.unreadMessages;
+      }
+    );
+    this.websocketService.chatNotification.subscribe(
+      (message)=>{
+        this.messageNotification++;
+      }
+    );
   }
 
   toggleClick(event:any) {
