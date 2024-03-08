@@ -30,6 +30,7 @@ import { ChatListComponent } from './pages/chat/chat-list/chat-list.component';
 import { WebsocketService } from './service/websocket.service';
 import { DatePipe } from '@angular/common';
 import { JwtModule } from '@auth0/angular-jwt';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,7 @@ import { JwtModule } from '@auth0/angular-jwt';
     JwtModule.forRoot({
       config: {
         tokenGetter: () => localStorage.getItem('token'),
-        allowedDomains: ['localhost:4200'],
+        allowedDomains: [environment.baseUrl],
         disallowedRoutes: ['*'],
       },
     })
