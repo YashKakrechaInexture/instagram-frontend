@@ -29,6 +29,7 @@ import { ChatComponent } from './pages/chat/chat/chat.component';
 import { ChatListComponent } from './pages/chat/chat-list/chat-list.component';
 import { WebsocketService } from './service/websocket.service';
 import { DatePipe } from '@angular/common';
+import { JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,14 @@ import { DatePipe } from '@angular/common';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    NgToastModule
+    NgToastModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => localStorage.getItem('token'),
+        allowedDomains: ['localhost:4200'],
+        disallowedRoutes: ['*'],
+      },
+    })
   ],
   providers: [
     {

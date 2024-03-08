@@ -52,7 +52,7 @@ export class CreateComponent {
 
     this.postService.uploadPostPic(formData).subscribe(
       (response) => {
-        this.router.navigateByUrl('profile/'+this.authenticationService.getToken('username'));
+        this.router.navigateByUrl('profile/'+this.authenticationService.getClaimFromToken('username'));
       },
       (error) => {
         this.toast.error({detail:"ERROR", summary:error?.error?.error, duration:5000});

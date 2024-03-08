@@ -108,14 +108,14 @@ export class ChatComponent implements OnInit{
 
   sendMessage(): void {
     const messageRequest: MessageRequest = {
-      sender: this.authenticationService.getToken('username'),
+      sender: this.authenticationService.getClaimFromToken('username'),
       recipient: this.recipient?.username!,
       message: this.messageContent
     }
     this.websocketService.publish(messageRequest);
     const messageResponse: Message = {
       id: 'id',
-      sender: this.authenticationService.getToken('username'),
+      sender: this.authenticationService.getClaimFromToken('username'),
       recipient: this.recipient?.username!,
       message: this.messageContent,
       timestamp: new Date(),

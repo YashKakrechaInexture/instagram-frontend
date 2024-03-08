@@ -64,6 +64,6 @@ export class SidebarComponent {
   }
 
   getUsername(){
-    return this.authenticationService.getToken('username');
+    return this.authenticationService.getClaimFromToken('username');
   }
 }
